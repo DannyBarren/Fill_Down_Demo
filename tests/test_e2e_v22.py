@@ -18,6 +18,8 @@ import pytest
 # is cached per-process, so this must be set at import time).
 _TMP_DB = Path(tempfile.mkdtemp()) / "e2e.db"
 os.environ["FILLDOWN_DB_PATH"] = str(_TMP_DB)
+# Disable the demo license/login gate so these UI tests exercise the app itself.
+os.environ["BBD_DEMO_AUTH"] = "0"
 
 from streamlit.testing.v1 import AppTest  # noqa: E402
 

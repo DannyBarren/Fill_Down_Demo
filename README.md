@@ -47,9 +47,30 @@ starts fast. Semantic / SetFit are optional.
 
 ---
 
+## Demo access (license + login)
+
+The app is gated for IP protection. Every visitor must:
+
+1. **Accept the license** (full screen) — see `LICENSE.md`.
+2. **Log in** with the shared demo credentials:
+   - **Username:** `BarrenBizDev`
+   - **Password:** `Bean_Cat_135_!$`
+
+The license is always re-viewable from the **📜 License** button in the sidebar.
+
+> **Sharing credentials safely**
+> - Share these credentials only with **approved prospects**, for a single demo
+>   session — see the license restrictions.
+> - To rotate them, edit `DEMO_USERNAME` / `DEMO_PASSWORD` at the top of
+>   `ui/access.py` and redeploy.
+> - This is a **soft gate** for casual access control, not cryptographic security
+>   (credentials live in the source). For private evaluations, also set the Space
+>   to **Private** and invite specific HF accounts.
+> - To disable the gate (e.g. local development), set `BBD_DEMO_AUTH=0`.
+
 ## Quick demo
 
-1. Open the app.
+1. Open the app → accept license → log in.
 2. On the dashboard, click **Load sample dataset** (neutral, multi-industry data).
 3. Click **Full Intelligent Run** in the toolbar.
 4. Approve a few rows in the **Review Queue**, or add a rule under **Rules**.

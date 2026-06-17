@@ -136,6 +136,9 @@ def init_state(config) -> None:
         "flash": None,
         "show_install_page": False,
         "confirm_action": None,       # None | clear_spreadsheet | start_fresh
+        "license_accepted": False,    # IP gate: license screen accepted
+        "logged_in": False,           # IP gate: demo login complete
+        "show_license": False,        # re-show license (sidebar button)
     }
     for key, val in defaults.items():
         st.session_state.setdefault(key, val)

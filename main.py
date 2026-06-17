@@ -91,11 +91,24 @@ if not _dep_status.core_ok:
 
 # Core deps are present — safe to import the rest of the app.
 from ui import common, landing, panels, sidebar, spreadsheet  # noqa: E402
+from ui import access  # noqa: E402  (IP protection: license + login gate)
 from ui import guide  # noqa: E402  (isolated, additive User Guide page)
 
 config, storage, rules_manager, model_manager, logger = common.services()
 common.init_state(config)
 common.inject_css()
+
+# --------------------------------------------------------------------------- #
+# IP protection gate:  License  ->  Login  ->  App
+# Runs before anything else in the app is shown. Disable with BBD_DEMO_AUTH=0.
+# --------------------------------------------------------------------------- #
+if access.auth_enabled():
+    if not access.license_accepted():
+        access.render_license()
+        st.stop()
+    if not access.logged_in():
+        access.render_login()
+        st.stop()
 
 # Full-page installer (reached from the sidebar) takes over when requested.
 if st.session_state.get("show_install_page"):
@@ -104,14 +117,21 @@ if st.session_state.get("show_install_page"):
 
 sidebar.render_sidebar()
 
-# Isolated, additive: a prominent button to open the User Guide.
-# Appended to the sidebar without modifying ui/sidebar.py.
+# Isolated, additive: a prominent button to open the User Guide, plus the
+# license/account controls. Appended to the sidebar without modifying
+# ui/sidebar.py.
 with st.sidebar:
     st.divider()
     st.button("📖 User Guide", width="stretch", type="primary",
               key="open_user_guide", on_click=guide.open_guide)
+    access.sidebar_account()
     st.caption("Prototype by Barren Business Development • All Rights Reserved • "
                "Not for Production Use")
+
+# Re-show the full license on demand (from the sidebar button).
+if access.show_license_requested():
+    access.render_license(reshow=True)
+    st.stop()
 
 # Full-page User Guide takeover (mirrors the installer screen pattern). When
 # open it replaces only the main content; closing returns to the exact same
@@ -138,3 +158,6 @@ else:
 
 if _panel:
     panels.open_panel_dialog(_panel)
+
+# Proprietary footer on the main app pages.
+access.render_footer()
