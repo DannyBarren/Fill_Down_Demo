@@ -26,8 +26,8 @@ import streamlit as st
 DEMO_USERNAME = "BarrenBizDev"
 DEMO_PASSWORD = "Bean_Cat_135_!$"
 
-FOOTER_TEXT = ("© 2026 Barren Business Development — Demo Only | "
-               "Commercial Use Requires Written Consent & Payment")
+FOOTER_TEXT = ("© 2026 Barren Business Development — Private Demo | "
+               "Commercial Use Requires Written Consent")
 
 _FALLBACK_LICENSE = """# Barren Business Development - Fill Down Automation Demo License
 
@@ -135,7 +135,7 @@ def sidebar_account() -> None:
     """Account/license controls — call inside a ``with st.sidebar:`` block."""
     st.divider()
     st.caption("Signed in as **Demo User**")
-    st.button("📜 License", width="stretch", key="sidebar_license",
+    st.button("📜 View License", width="stretch", key="sidebar_license",
               on_click=request_license)
     st.button("Log out", width="stretch", key="sidebar_logout",
               on_click=logout)

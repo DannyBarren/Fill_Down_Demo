@@ -70,7 +70,7 @@ if not _running_under_streamlit():
 
 
 st.set_page_config(
-    page_title="Barren Business Development",
+    page_title="Barren Business Development Demo",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -109,6 +109,15 @@ if access.auth_enabled():
     if not access.logged_in():
         access.render_login()
         st.stop()
+
+# Demo convenience: in demo/HF mode, load the neutral sample dataset once per
+# session so the app opens with data ready to explore (a clean pitch experience).
+# Never auto-loads off-demo, and the one-time flag means "New file" / "Start
+# fresh" are respected afterwards.
+if common.demo_mode() and not st.session_state.get("demo_sample_loaded"):
+    if st.session_state.get("work_df") is None:
+        common.load_sample(navigate=True)
+    st.session_state["demo_sample_loaded"] = True
 
 # Full-page installer (reached from the sidebar) takes over when requested.
 if st.session_state.get("show_install_page"):

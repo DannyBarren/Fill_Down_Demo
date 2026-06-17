@@ -139,6 +139,7 @@ def init_state(config) -> None:
         "license_accepted": False,    # IP gate: license screen accepted
         "logged_in": False,           # IP gate: demo login complete
         "show_license": False,        # re-show license (sidebar button)
+        "demo_sample_loaded": False,  # demo: auto-load sample once per session
     }
     for key, val in defaults.items():
         st.session_state.setdefault(key, val)
