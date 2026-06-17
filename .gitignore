@@ -1,0 +1,30 @@
+# Large ML files
+checkpoints/
+data/models/
+*.pt
+*.safetensors
+*.bin
+*.joblib
+
+# Runtime data (regenerated on first run; not for version control)
+data/*.db
+data/*.db-journal
+data/*.log
+data/work/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS
+.DS_Store
+Thumbs.db
